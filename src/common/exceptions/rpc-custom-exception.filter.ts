@@ -1,8 +1,4 @@
-import {
-  Catch,
-  ArgumentsHost,
-  ExceptionFilter,
-} from '@nestjs/common';
+import { Catch, ArgumentsHost, ExceptionFilter } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
 @Catch(RpcException)
@@ -13,10 +9,12 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
 
     const rpcError = exception.getError();
 
-    if(rpcError.toString().includes('Empty response')) {
+    if (rpcError.toString().includes('Empty response')) {
       return response.status(500).json({
         statusCode: 500,
-        message: rpcError.toString().substring(0, rpcError.toString().indexOf('(') - 1)
+        message: rpcError
+          .toString()
+          .substring(0, rpcError.toString().indexOf('(') - 1),
       });
     }
 
@@ -26,7 +24,10 @@ export class RpcCustomExceptionFilter implements ExceptionFilter {
       'status' in rpcError &&
       'message' in rpcError
     ) {
-      const { status, message } = rpcError as { status: number | string; message: string };
+      const { status, message } = rpcError as {
+        status: number | string;
+        message: string;
+      };
       const statusCode = isNaN(+status) ? 400 : +status;
       return response.status(statusCode).json({ status: statusCode, message });
     }
