@@ -36,11 +36,11 @@ export class AuthenticationController {
     @User() user: CurrentUser,
     @Token() token: string,
   ) {
+    console.log('data', user, token);
     try {
       const userFound = await firstValueFrom(
         this.client.send('findUserById', { id }),
       );
-
       return userFound;
     } catch (error) {
       throw new RpcException(error);
