@@ -21,6 +21,8 @@ async function main() {
 
   await app.listen(envs.port);
 
+  console.log('prueba1');
+
   logger.log(`Gateway running on port:${envs.port}`);
 }
 main();
