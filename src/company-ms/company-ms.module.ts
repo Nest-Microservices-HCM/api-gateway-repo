@@ -13,11 +13,5 @@ import { PositionModule } from './position/position.module';
     HierarchicalLevelModule,
     PositionModule,
   ],
-  // exports: [
-  //   CompanyModule,
-  //   DepartmentModule,
-  //   OrganizationModule,
-  //   HierarchicalLevelModule,
-  // ],
 })
 export class CompanyMsModule {}
